@@ -2,8 +2,10 @@ import { useState, useMemo, useEffect } from 'react';
 import { jobs } from '../data/jobs';
 import type { Job } from '../types/Job';
 import type { UserPreferences } from '../types/UserPreferences';
+import type { JobStatus, StatusChange } from '../types/JobStatus';
 import { JobCard } from '../components/JobCard';
 import { Modal } from '../components/Modal';
+import { Toast } from '../components/Toast';
 import { calculateMatchScore } from '../utils/matchScore';
 import './DashboardPage.css';
 
@@ -14,7 +16,14 @@ export const DashboardPage = () => {
         return saved ? JSON.parse(saved) : [];
     });
 
+    const [jobStatuses, setJobStatuses] = useState<Record<string, JobStatus>>(() => {
+        const saved = localStorage.getItem('jobTrackerStatus');
+        return saved ? JSON.parse(saved) : {};
+    });
+
     const [preferences, setPreferences] = useState<UserPreferences | null>(null);
+    const [toastMessage, setToastMessage] = useState('');
+    const [showToast, setShowToast] = useState(false);
 
     // Filter states
     const [keyword, setKeyword] = useState('');
@@ -22,6 +31,7 @@ export const DashboardPage = () => {
     const [mode, setMode] = useState('');
     const [experience, setExperience] = useState('');
     const [source, setSource] = useState('');
+    const [statusFilter, setStatusFilter] = useState('');
     const [sortBy, setSortBy] = useState('latest');
     const [showOnlyMatches, setShowOnlyMatches] = useState(false);
 
@@ -50,16 +60,48 @@ export const DashboardPage = () => {
         window.open(url, '_blank');
     };
 
+    const handleStatusChange = (jobId: string, status: JobStatus) => {
+        const newStatuses = { ...jobStatuses, [jobId]: status };
+        setJobStatuses(newStatuses);
+        localStorage.setItem('jobTrackerStatus', JSON.stringify(newStatuses));
+
+        // Add to status change history
+        const job = jobs.find(j => j.id === jobId);
+        if (job) {
+            const statusChange: StatusChange = {
+                jobId,
+                jobTitle: job.title,
+                company: job.company,
+                status,
+                changedAt: new Date().toISOString()
+            };
+
+            const historyKey = 'jobTrackerStatusHistory';
+            const existingHistory = localStorage.getItem(historyKey);
+            const history: StatusChange[] = existingHistory ? JSON.parse(existingHistory) : [];
+            history.unshift(statusChange);
+
+            // Keep only last 20 changes
+            const limitedHistory = history.slice(0, 20);
+            localStorage.setItem(historyKey, JSON.stringify(limitedHistory));
+        }
+
+        // Show toast
+        setToastMessage(`Status updated: ${status}`);
+        setShowToast(true);
+    };
+
     // Calculate match scores and filter/sort jobs
     const jobsWithScores = useMemo(() => {
         return jobs.map(job => ({
             job,
-            matchScore: calculateMatchScore(job, preferences)
+            matchScore: calculateMatchScore(job, preferences),
+            status: jobStatuses[job.id] || 'Not Applied'
         }));
-    }, [preferences]);
+    }, [preferences, jobStatuses]);
 
     const filteredJobs = useMemo(() => {
-        let result = jobsWithScores.filter(({ job, matchScore }) => {
+        let result = jobsWithScores.filter(({ job, matchScore, status }) => {
             // Basic filters (AND logic)
             const matchesKeyword = !keyword ||
                 job.title.toLowerCase().includes(keyword.toLowerCase()) ||
@@ -68,13 +110,14 @@ export const DashboardPage = () => {
             const matchesMode = !mode || job.mode === mode;
             const matchesExperience = !experience || job.experience === experience;
             const matchesSource = !source || job.source === source;
+            const matchesStatus = !statusFilter || status === statusFilter;
 
             // Match threshold filter
             const meetsThreshold = !showOnlyMatches ||
                 (preferences && matchScore >= preferences.minMatchScore);
 
             return matchesKeyword && matchesLocation && matchesMode &&
-                matchesExperience && matchesSource && meetsThreshold;
+                matchesExperience && matchesSource && matchesStatus && meetsThreshold;
         });
 
         // Sort
@@ -94,7 +137,7 @@ export const DashboardPage = () => {
         }
 
         return result;
-    }, [jobsWithScores, keyword, location, mode, experience, source, sortBy, showOnlyMatches, preferences]);
+    }, [jobsWithScores, keyword, location, mode, experience, source, statusFilter, sortBy, showOnlyMatches, preferences]);
 
     const hasPreferences = preferences && (
         preferences.roleKeywords.length > 0 ||
@@ -103,6 +146,19 @@ export const DashboardPage = () => {
         preferences.experienceLevel !== '' ||
         preferences.skills.length > 0
     );
+
+    const handleClearAllFilters = () => {
+        setKeyword('');
+        setLocation('');
+        setMode('');
+        setExperience('');
+        setSource('');
+        setStatusFilter('');
+        setSortBy('latest');
+        setShowOnlyMatches(false);
+    };
+
+    const hasActiveFilters = keyword || location || mode || experience || source || statusFilter || showOnlyMatches;
 
     return (
         <div className="dashboard-page">
@@ -168,11 +224,25 @@ export const DashboardPage = () => {
                         <option value="Indeed">Indeed</option>
                     </select>
 
+                    <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="dashboard-filter-select">
+                        <option value="">All Statuses</option>
+                        <option value="Not Applied">Not Applied</option>
+                        <option value="Applied">Applied</option>
+                        <option value="Rejected">Rejected</option>
+                        <option value="Selected">Selected</option>
+                    </select>
+
                     <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="dashboard-filter-select">
                         <option value="latest">Sort: Latest</option>
                         <option value="matchScore">Sort: Match Score</option>
                         <option value="salary">Sort: Salary</option>
                     </select>
+
+                    {hasActiveFilters && (
+                        <button onClick={handleClearAllFilters} className="dashboard-clear-btn">
+                            Clear All
+                        </button>
+                    )}
                 </div>
 
                 {hasPreferences && (
@@ -205,15 +275,17 @@ export const DashboardPage = () => {
                         </p>
                     </div>
                 ) : (
-                    filteredJobs.map(({ job, matchScore }) => (
+                    filteredJobs.map(({ job, matchScore, status }) => (
                         <JobCard
                             key={job.id}
                             job={job}
                             onView={handleView}
                             onSave={handleSave}
                             onApply={handleApply}
+                            onStatusChange={handleStatusChange}
                             isSaved={savedJobs.includes(job.id)}
                             matchScore={matchScore}
+                            status={status}
                         />
                     ))
                 )}
@@ -258,6 +330,12 @@ export const DashboardPage = () => {
                     </div>
                 )}
             </Modal>
+
+            <Toast
+                message={toastMessage}
+                isVisible={showToast}
+                onClose={() => setShowToast(false)}
+            />
         </div>
     );
 };

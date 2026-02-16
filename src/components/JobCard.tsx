@@ -1,4 +1,5 @@
 import type { Job } from '../types/Job';
+import type { JobStatus } from '../types/JobStatus';
 import { Badge } from './Badge';
 import './JobCard.css';
 
@@ -7,11 +8,13 @@ interface JobCardProps {
     onView: (job: Job) => void;
     onSave: (jobId: string) => void;
     onApply: (url: string) => void;
+    onStatusChange: (jobId: string, status: JobStatus) => void;
     isSaved?: boolean;
     matchScore?: number;
+    status: JobStatus;
 }
 
-export const JobCard = ({ job, onView, onSave, onApply, isSaved, matchScore }: JobCardProps) => {
+export const JobCard = ({ job, onView, onSave, onApply, onStatusChange, isSaved, matchScore, status }: JobCardProps) => {
     const formatPostedTime = (days: number) => {
         if (days === 0) return 'Today';
         if (days === 1) return '1 day ago';
@@ -24,6 +27,15 @@ export const JobCard = ({ job, onView, onSave, onApply, isSaved, matchScore }: J
         if (score >= 40) return 'neutral';
         return 'error';
     };
+
+    const getStatusVariant = (status: JobStatus): 'success' | 'warning' | 'neutral' | 'error' => {
+        if (status === 'Selected') return 'success';
+        if (status === 'Applied') return 'warning';
+        if (status === 'Rejected') return 'error';
+        return 'neutral';
+    };
+
+    const statuses: JobStatus[] = ['Not Applied', 'Applied', 'Rejected', 'Selected'];
 
     return (
         <div className="job-card">
@@ -49,6 +61,24 @@ export const JobCard = ({ job, onView, onSave, onApply, isSaved, matchScore }: J
             </div>
 
             <div className="job-card-salary">{job.salaryRange}</div>
+
+            <div className="job-card-meta">
+                <span className="job-card-posted">{formatPostedTime(job.postedDaysAgo)}</span>
+                <Badge label={status} variant={getStatusVariant(status)} />
+            </div>
+
+            <div className="job-card-status">
+                <label className="job-card-status-label">Status:</label>
+                <select
+                    value={status}
+                    onChange={(e) => onStatusChange(job.id, e.target.value as JobStatus)}
+                    className="job-card-status-select"
+                >
+                    {statuses.map(s => (
+                        <option key={s} value={s}>{s}</option>
+                    ))}
+                </select>
+            </div>
 
             <div className="job-card-footer">
                 <span className="job-card-posted">{formatPostedTime(job.postedDaysAgo)}</span>

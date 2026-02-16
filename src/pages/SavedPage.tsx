@@ -1,8 +1,10 @@
 import { useState, useMemo } from 'react';
 import { jobs } from '../data/jobs';
 import type { Job } from '../types/Job';
+import type { JobStatus } from '../types/JobStatus';
 import { JobCard } from '../components/JobCard';
 import { Modal } from '../components/Modal';
+import { Toast } from '../components/Toast';
 import { EmptyState } from '../components/EmptyState';
 import { Bookmark } from 'lucide-react';
 import '../pages/DashboardPage.css';
@@ -13,6 +15,14 @@ export const SavedPage = () => {
         const saved = localStorage.getItem('savedJobs');
         return saved ? JSON.parse(saved) : [];
     });
+
+    const [jobStatuses, setJobStatuses] = useState<Record<string, JobStatus>>(() => {
+        const saved = localStorage.getItem('jobTrackerStatus');
+        return saved ? JSON.parse(saved) : {};
+    });
+
+    const [toastMessage, setToastMessage] = useState('');
+    const [showToast, setShowToast] = useState(false);
 
     const handleView = (job: Job) => {
         setSelectedJob(job);
@@ -26,6 +36,16 @@ export const SavedPage = () => {
 
     const handleApply = (url: string) => {
         window.open(url, '_blank');
+    };
+
+    const handleStatusChange = (jobId: string, status: JobStatus) => {
+        const newStatuses = { ...jobStatuses, [jobId]: status };
+        setJobStatuses(newStatuses);
+        localStorage.setItem('jobTrackerStatus', JSON.stringify(newStatuses));
+
+        // Show toast
+        setToastMessage(`Status updated: ${status}`);
+        setShowToast(true);
     };
 
     const savedJobsList = useMemo(() => {
@@ -59,7 +79,9 @@ export const SavedPage = () => {
                         onView={handleView}
                         onSave={handleSave}
                         onApply={handleApply}
+                        onStatusChange={handleStatusChange}
                         isSaved={true}
+                        status={jobStatuses[job.id] || 'Not Applied'}
                     />
                 ))}
             </div>
@@ -103,6 +125,12 @@ export const SavedPage = () => {
                     </div>
                 )}
             </Modal>
+
+            <Toast
+                message={toastMessage}
+                isVisible={showToast}
+                onClose={() => setShowToast(false)}
+            />
         </div>
     );
 };

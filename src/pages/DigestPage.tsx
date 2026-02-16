@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { jobs } from '../data/jobs';
 import type { UserPreferences } from '../types/UserPreferences';
 import type { DailyDigest } from '../types/DailyDigest';
+import type { StatusChange } from '../types/JobStatus';
 import { calculateMatchScore } from '../utils/matchScore';
 import { Badge } from '../components/Badge';
 import './DigestPage.css';
@@ -10,6 +11,7 @@ export const DigestPage = () => {
     const [digest, setDigest] = useState<DailyDigest | null>(null);
     const [preferences, setPreferences] = useState<UserPreferences | null>(null);
     const [copySuccess, setCopySuccess] = useState(false);
+    const [statusHistory, setStatusHistory] = useState<StatusChange[]>([]);
 
     const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
     const digestKey = `jobTrackerDigest_${today}`;
@@ -25,6 +27,13 @@ export const DigestPage = () => {
         const savedDigest = localStorage.getItem(digestKey);
         if (savedDigest) {
             setDigest(JSON.parse(savedDigest));
+        }
+
+        // Load status history
+        const historyKey = 'jobTrackerStatusHistory';
+        const savedHistory = localStorage.getItem(historyKey);
+        if (savedHistory) {
+            setStatusHistory(JSON.parse(savedHistory));
         }
     }, [digestKey]);
 
@@ -108,6 +117,13 @@ export const DigestPage = () => {
         const subject = 'My 9AM Job Digest';
         const mailtoLink = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(text)}`;
         window.location.href = mailtoLink;
+    };
+
+    const getStatusVariant = (status: string): 'success' | 'warning' | 'neutral' | 'error' => {
+        if (status === 'Selected') return 'success';
+        if (status === 'Applied') return 'warning';
+        if (status === 'Rejected') return 'error';
+        return 'neutral';
     };
 
     const formattedDate = new Date(today).toLocaleDateString('en-US', {
@@ -221,6 +237,36 @@ export const DigestPage = () => {
                             </button>
                         </div>
                     </>
+                )}
+
+                {statusHistory.length > 0 && (
+                    <div className="digest-status-history">
+                        <h2 className="digest-status-history-title">Recent Status Updates</h2>
+                        <div className="digest-status-list">
+                            {statusHistory.slice(0, 10).map((change, index) => {
+                                const changeDate = new Date(change.changedAt);
+                                const formattedChangeDate = changeDate.toLocaleDateString('en-US', {
+                                    month: 'short',
+                                    day: 'numeric',
+                                    hour: '2-digit',
+                                    minute: '2-digit'
+                                });
+
+                                return (
+                                    <div key={index} className="digest-status-item">
+                                        <div className="digest-status-item-header">
+                                            <div>
+                                                <h3 className="digest-status-item-title">{change.jobTitle}</h3>
+                                                <p className="digest-status-item-company">{change.company}</p>
+                                            </div>
+                                            <Badge label={change.status} variant={getStatusVariant(change.status)} />
+                                        </div>
+                                        <p className="digest-status-item-date">{formattedChangeDate}</p>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
                 )}
             </div>
         </div>
