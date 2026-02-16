@@ -8,7 +8,7 @@
   --color-warning: #F9A825;
   --border-subtle: #E0E0E0;
   --border-focus: #111111;
-  
+
   /* Spacing System */
   --space-xs: 8px;
   --space-sm: 16px;
@@ -17,7 +17,8 @@
   --space-xl: 64px;
 
   /* Typography */
-  --font-heading: 'Times New Roman', Times, serif; /* Using a system serif for now as per "Serif font, large, confident" */
+  --font-heading: 'Times New Roman', Times, serif;
+  /* Using a system serif for now as per "Serif font, large, confident" */
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
@@ -35,7 +36,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   font-weight: 700;
   line-height: 1.2;
@@ -47,7 +53,9 @@ button {
   font-family: inherit;
 }
 
-input, textarea, select {
+input,
+textarea,
+select {
   font-family: inherit;
 }
 
@@ -56,4 +64,15 @@ input, textarea, select {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 var(--space-md);
+}
+
+/* App Layout */
+.app-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  flex: 1;
 }

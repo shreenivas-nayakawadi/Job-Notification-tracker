@@ -1,0 +1,63 @@
+.notfound-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: var(--space-xl) var(--space-md);
+    min-height: calc(100vh - 200px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.notfound-title {
+    font-family: var(--font-heading);
+    font-size: 96px;
+    font-weight: 700;
+    color: var(--color-accent);
+    margin-bottom: var(--space-sm);
+    letter-spacing: -0.02em;
+}
+
+.notfound-subtitle {
+    font-family: var(--font-heading);
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--space-md);
+}
+
+.notfound-text {
+    font-family: var(--font-body);
+    font-size: 16px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--space-lg);
+}
+
+.notfound-link {
+    display: inline-block;
+    padding: 12px var(--space-md);
+    background-color: var(--color-accent);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.notfound-link:hover {
+    background-color: #6d0000;
+}
+
+@media (max-width: 768px) {
+    .notfound-title {
+        font-size: 64px;
+    }
+
+    .notfound-subtitle {
+        font-size: 24px;
+    }
+}
