@@ -1,0 +1,17 @@
+.context-header {
+    max-width: 800px;
+}
+
+.context-title {
+    font-size: 32px;
+    color: var(--text-primary);
+    margin-bottom: var(--space-xs);
+    letter-spacing: -0.02em;
+}
+
+.context-subtext {
+    font-family: var(--font-body);
+    font-size: 16px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}

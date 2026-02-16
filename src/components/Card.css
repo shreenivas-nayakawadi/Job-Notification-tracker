@@ -1,0 +1,28 @@
+.card {
+    background-color: white;
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    overflow: hidden;
+    /* No drop shadows as per instructions */
+}
+
+.card-header {
+    padding: var(--space-md);
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-title {
+    font-family: var(--font-body);
+    /* Cards usually use sans-serif headings in this style */
+    font-weight: 600;
+    font-size: 16px;
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.card-content {
+    padding: var(--space-md);
+}

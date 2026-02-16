@@ -1,0 +1,59 @@
+:root {
+  /* Color System */
+  --bg-primary: #F7F6F3;
+  --text-primary: #111111;
+  --text-secondary: #555555;
+  --color-accent: #8B0000;
+  --color-success: #2E7D32;
+  --color-warning: #F9A825;
+  --border-subtle: #E0E0E0;
+  --border-focus: #111111;
+  
+  /* Spacing System */
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 40px;
+  --space-xl: 64px;
+
+  /* Typography */
+  --font-heading: 'Times New Roman', Times, serif; /* Using a system serif for now as per "Serif font, large, confident" */
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: var(--space-sm);
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+input, textarea, select {
+  font-family: inherit;
+}
+
+/* Utilities */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}

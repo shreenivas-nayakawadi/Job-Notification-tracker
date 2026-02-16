@@ -1,0 +1,59 @@
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0 var(--space-md);
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+    border: 1px solid transparent;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-icon {
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+}
+
+/* Primary: Solid Deep Red */
+.btn-primary {
+    background-color: var(--color-accent);
+    color: white;
+    border-color: var(--color-accent);
+}
+
+.btn-primary:hover:not(:disabled) {
+    background-color: #6d0000;
+    /* Darker shade for hover */
+    border-color: #6d0000;
+}
+
+/* Secondary: Outlined */
+.btn-secondary {
+    background-color: transparent;
+    color: var(--text-primary);
+    border-color: var(--border-subtle);
+}
+
+.btn-secondary:hover:not(:disabled) {
+    border-color: var(--text-primary);
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* Ghost: Text only (useful for tertiary actions) */
+.btn-ghost {
+    background-color: transparent;
+    color: var(--text-secondary);
+}
+
+.btn-ghost:hover:not(:disabled) {
+    color: var(--text-primary);
+    background-color: rgba(0, 0, 0, 0.04);
+}
