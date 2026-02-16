@@ -1,0 +1,272 @@
+.digest-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--space-lg) var(--space-md);
+}
+
+.digest-container {
+    width: 100%;
+}
+
+.digest-header {
+    margin-bottom: var(--space-lg);
+    text-align: center;
+}
+
+.digest-title {
+    font-family: var(--font-heading);
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-xs) 0;
+}
+
+.digest-subtitle {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin: 0 0 var(--space-xs) 0;
+}
+
+.digest-demo-note {
+    font-family: var(--font-body);
+    font-size: 12px;
+    color: var(--text-tertiary);
+    font-style: italic;
+    margin: 0;
+}
+
+/* Blocking State */
+.digest-blocking {
+    text-align: center;
+    padding: var(--space-xl);
+    background-color: white;
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+}
+
+.digest-blocking-title {
+    font-family: var(--font-heading);
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-sm) 0;
+}
+
+.digest-blocking-message {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin: 0 0 var(--space-md) 0;
+}
+
+.digest-blocking-link {
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-accent);
+    text-decoration: none;
+}
+
+.digest-blocking-link:hover {
+    text-decoration: underline;
+}
+
+/* Generate Button */
+.digest-generate {
+    text-align: center;
+    padding: var(--space-xl);
+}
+
+.digest-generate-btn {
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 500;
+    padding: 14px 28px;
+    background-color: var(--color-accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.digest-generate-btn:hover {
+    background-color: #6d0000;
+}
+
+/* Digest Card (Email Style) */
+.digest-card {
+    background-color: white;
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: var(--space-lg);
+    margin-bottom: var(--space-md);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.digest-card-header {
+    border-bottom: 2px solid var(--border-subtle);
+    padding-bottom: var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.digest-card-title {
+    font-family: var(--font-heading);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-xs) 0;
+}
+
+.digest-card-date {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Digest Jobs */
+.digest-jobs {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.digest-job {
+    padding: var(--space-md);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.digest-job:hover {
+    border-color: var(--text-tertiary);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.digest-job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--space-xs);
+    gap: var(--space-sm);
+}
+
+.digest-job-title {
+    font-family: var(--font-heading);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.digest-job-company {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin: 4px 0 0 0;
+}
+
+.digest-job-details {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-sm);
+}
+
+.digest-job-apply {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 16px;
+    background-color: var(--color-accent);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.digest-job-apply:hover {
+    background-color: #6d0000;
+}
+
+/* Empty State */
+.digest-empty {
+    text-align: center;
+    padding: var(--space-xl);
+}
+
+.digest-empty-text {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Card Footer */
+.digest-card-footer {
+    border-top: 1px solid var(--border-subtle);
+    padding-top: var(--space-md);
+    margin-top: var(--space-md);
+}
+
+.digest-card-footer-text {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--text-tertiary);
+    text-align: center;
+    margin: 0;
+}
+
+/* Action Buttons */
+.digest-actions {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+}
+
+.digest-action-btn {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 12px 24px;
+    background-color: var(--color-accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.digest-action-btn:hover {
+    background-color: #6d0000;
+}
+
+.digest-action-btn-secondary {
+    background-color: white;
+    color: var(--color-accent);
+    border: 1px solid var(--color-accent);
+}
+
+.digest-action-btn-secondary:hover {
+    background-color: rgba(139, 0, 0, 0.05);
+}
+
+@media (max-width: 768px) {
+    .digest-title {
+        font-size: 28px;
+    }
+
+    .digest-actions {
+        flex-direction: column;
+    }
+
+    .digest-action-btn {
+        width: 100%;
+    }
+}
