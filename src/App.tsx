@@ -7,6 +7,8 @@ import {
     DigestPage,
     SettingsPage,
     ProofPage,
+    TestPage,
+    ShipPage,
     NotFoundPage
 } from './pages';
 import './index.css';
@@ -24,6 +26,8 @@ function App() {
                         <Route path="/digest" element={<DigestPage />} />
                         <Route path="/settings" element={<SettingsPage />} />
                         <Route path="/proof" element={<ProofPage />} />
+                        <Route path="/jt/07-test" element={<TestPage />} />
+                        <Route path="/jt/08-ship" element={<ShipPage />} />
                         <Route path="*" element={<NotFoundPage />} />
                     </Routes>
                 </main>

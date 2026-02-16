@@ -4,4 +4,6 @@ export { SavedPage } from './SavedPage';
 export { DigestPage } from './DigestPage';
 export { SettingsPage } from './SettingsPage';
 export { ProofPage } from './ProofPage';
+export { TestPage } from './TestPage';
+export { ShipPage } from './ShipPage';
 export { NotFoundPage } from './NotFoundPage';

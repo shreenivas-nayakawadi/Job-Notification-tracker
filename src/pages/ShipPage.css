@@ -1,0 +1,127 @@
+.ship-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--space-lg) var(--space-md);
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ship-container {
+    width: 100%;
+}
+
+/* Locked State */
+.ship-locked {
+    text-align: center;
+    padding: var(--space-xl);
+    background-color: white;
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+}
+
+.ship-locked-icon {
+    color: var(--text-tertiary);
+    margin-bottom: var(--space-md);
+}
+
+.ship-locked-title {
+    font-family: var(--font-heading);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-sm) 0;
+}
+
+.ship-locked-message {
+    font-family: var(--font-body);
+    font-size: 16px;
+    color: var(--text-secondary);
+    margin: 0 0 var(--space-lg) 0;
+}
+
+.ship-locked-btn {
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 500;
+    padding: 14px 32px;
+    background-color: var(--color-accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.ship-locked-btn:hover {
+    background-color: #6d0000;
+}
+
+/* Unlocked State */
+.ship-unlocked {
+    text-align: center;
+    padding: var(--space-xl);
+    background-color: white;
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+}
+
+.ship-unlocked-icon {
+    color: var(--color-accent);
+    margin-bottom: var(--space-md);
+}
+
+.ship-unlocked-title {
+    font-family: var(--font-heading);
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-sm) 0;
+}
+
+.ship-unlocked-message {
+    font-family: var(--font-body);
+    font-size: 16px;
+    color: var(--text-secondary);
+    margin: 0 0 var(--space-xl) 0;
+}
+
+.ship-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+}
+
+.ship-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.ship-stat-value {
+    font-family: var(--font-heading);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-accent);
+}
+
+.ship-stat-label {
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+
+    .ship-locked-title,
+    .ship-unlocked-title {
+        font-size: 24px;
+    }
+
+    .ship-stats {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+}
