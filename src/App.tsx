@@ -1,6 +1,7 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Navigation } from './components/Navigation';
 import {
+    LandingPage,
     DashboardPage,
     SavedPage,
     DigestPage,
@@ -17,7 +18,7 @@ function App() {
                 <Navigation />
                 <main className="app-main">
                     <Routes>
-                        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+                        <Route path="/" element={<LandingPage />} />
                         <Route path="/dashboard" element={<DashboardPage />} />
                         <Route path="/saved" element={<SavedPage />} />
                         <Route path="/digest" element={<DigestPage />} />
