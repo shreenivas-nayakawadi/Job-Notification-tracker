@@ -19,6 +19,12 @@
     gap: var(--space-sm);
 }
 
+.job-card-badges {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
 .job-card-title {
     font-family: var(--font-heading);
     font-size: 18px;

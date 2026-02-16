@@ -8,13 +8,21 @@ interface JobCardProps {
     onSave: (jobId: string) => void;
     onApply: (url: string) => void;
     isSaved?: boolean;
+    matchScore?: number;
 }
 
-export const JobCard = ({ job, onView, onSave, onApply, isSaved }: JobCardProps) => {
+export const JobCard = ({ job, onView, onSave, onApply, isSaved, matchScore }: JobCardProps) => {
     const formatPostedTime = (days: number) => {
         if (days === 0) return 'Today';
         if (days === 1) return '1 day ago';
         return `${days} days ago`;
+    };
+
+    const getScoreVariant = (score: number): 'success' | 'warning' | 'neutral' | 'error' => {
+        if (score >= 80) return 'success';
+        if (score >= 60) return 'warning';
+        if (score >= 40) return 'neutral';
+        return 'error';
     };
 
     return (
@@ -24,7 +32,12 @@ export const JobCard = ({ job, onView, onSave, onApply, isSaved }: JobCardProps)
                     <h3 className="job-card-title">{job.title}</h3>
                     <p className="job-card-company">{job.company}</p>
                 </div>
-                <Badge label={job.source} variant="neutral" />
+                <div className="job-card-badges">
+                    {matchScore !== undefined && matchScore > 0 && (
+                        <Badge label={`${matchScore}%`} variant={getScoreVariant(matchScore)} />
+                    )}
+                    <Badge label={job.source} variant="neutral" />
+                </div>
             </div>
 
             <div className="job-card-details">
