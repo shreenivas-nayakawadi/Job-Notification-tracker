@@ -1,0 +1,188 @@
+.dashboard-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-lg) var(--space-md);
+}
+
+.dashboard-header {
+    margin-bottom: var(--space-lg);
+}
+
+.dashboard-title {
+    font-family: var(--font-heading);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-xs) 0;
+}
+
+.dashboard-subtitle {
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.dashboard-filters {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+}
+
+.dashboard-filter-input,
+.dashboard-filter-select {
+    font-family: var(--font-body);
+    font-size: 14px;
+    padding: 10px 12px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 6px;
+    background-color: white;
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+}
+
+.dashboard-filter-input:focus,
+.dashboard-filter-select:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(139, 0, 0, 0.1);
+}
+
+.dashboard-filter-select {
+    cursor: pointer;
+}
+
+.dashboard-jobs {
+    display: grid;
+    gap: var(--space-md);
+}
+
+.dashboard-empty {
+    text-align: center;
+    padding: var(--space-xl) var(--space-md);
+    margin: var(--space-xl) 0;
+}
+
+.dashboard-empty-title {
+    font-family: var(--font-heading);
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-sm) 0;
+}
+
+.dashboard-empty-message {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Job Modal Styles */
+.job-modal {
+    padding-right: var(--space-md);
+}
+
+.job-modal-title {
+    font-family: var(--font-heading);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-xs) 0;
+}
+
+.job-modal-company {
+    font-family: var(--font-body);
+    font-size: 16px;
+    color: var(--text-secondary);
+    margin: 0 0 var(--space-sm) 0;
+}
+
+.job-modal-details {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-body);
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-sm);
+}
+
+.job-modal-salary {
+    font-family: var(--font-body);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: var(--space-lg);
+}
+
+.job-modal-section {
+    margin-bottom: var(--space-lg);
+}
+
+.job-modal-section-title {
+    font-family: var(--font-heading);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 var(--space-sm) 0;
+}
+
+.job-modal-description {
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 0;
+}
+
+.job-modal-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.job-modal-skill {
+    font-family: var(--font-body);
+    font-size: 13px;
+    padding: 6px 12px;
+    background-color: rgba(139, 0, 0, 0.08);
+    color: var(--color-accent);
+    border-radius: 4px;
+}
+
+.job-modal-apply-btn {
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 500;
+    padding: 14px;
+    background-color: var(--color-accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: var(--space-md);
+}
+
+.job-modal-apply-btn:hover {
+    background-color: #6d0000;
+}
+
+@media (max-width: 1024px) {
+    .dashboard-filters {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-filters {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-filter-input {
+        grid-column: 1;
+    }
+}
